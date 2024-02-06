@@ -1,20 +1,24 @@
 const entrada = require('prompt-sync')({ sigint: true });
 const fs = require('fs');
-
+let Id=1;
 class ProductManager {
-    #pathData = "./data/produto.json"
-    constructor(title, description, price, thumbnail, code, stock) {
+    #pathData = "../data/produto.json"
+    
+     constructor(title, description, price, thumbnail, code, stock) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.thumbnail = thumbnail;
         this.code = code;
         this.stock = stock;
+        
     }
+
 
     addProduct() {
         let produto = this.readData();
         if (this.checkData(produto)) {
+            produto.code = Id++;
             this.saveProductToFile(produto);
         }
     }
@@ -28,8 +32,8 @@ class ProductManager {
         const product_title = title;
         const product_desc = description;
         const product_price = price;
-        const product_thumb = "caminho da imagem produto " + id;
-        const product_code = id;
+        const product_thumb = "caminho da imagem produto " + Id;
+        const product_code = Id;
         const product_stock = stock;
         let produto = new ProductManager(
             product_title,
@@ -84,6 +88,7 @@ class ProductManager {
         if (index !== -1) {
             console.log(productsList[index]);
             let updatedProduct = this.readData();
+            updatedProduct.code=parseInt(productId);
             productsList[index] = updatedProduct;
             fs.writeFileSync(this.#pathData, JSON.stringify(productsList));
             console.log('Produto atualizado com sucesso!');
@@ -116,11 +121,12 @@ class ProductManager {
         }
     }
 }
+module.exports=ProductManager;
 
-let id = 1;
 let teclado;
 let option = 0;
 const newProduct = new ProductManager();
+
 
 while (option != 9) {
     console.log("*--Digite 1 para registrar produtos--*");
@@ -135,7 +141,7 @@ while (option != 9) {
     switch (option) {
         case 1:
             newProduct.addProduct();
-            id = id + 1;
+                        
             break;
         case 2:
             newProduct.getProductById();

@@ -32,4 +32,7 @@
     - Atualiza o produto no arquivo, assegurando que o Id não seja excluído.
 5. deleteProduct 
     - Método para deletar um produto.
-    - Receber um id e deve deletar o produto com esse id no arquivo.           
+    - Receber um id e deve deletar o produto com esse id no arquivo.     
+
+# Exercício 3 - Servidor com Express 
+### Descrição
