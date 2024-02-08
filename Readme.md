@@ -36,3 +36,14 @@
 
 # Exercício 3 - Servidor com Express 
 ### Descrição
+1. Desenvolver um servidor baseado em express
+2. Consultar arquivos de produtos
+
+## ** Aspectos a incluir**
+1. Persistência de arquivo
+- usar a classe ProductManager
+- Desenvolver um servidor express arquivo app.js
+2. EndPoints 
+- "/products" ler arquivo products e retornar objeto
+- receber parâmetro de query o valor ?limit= que receberá um limite de resultados
+- rota "/products/:id deve reveber o ID do produto por req.params e retornar apenas produto solicitado
