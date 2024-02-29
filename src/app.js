@@ -1,55 +1,54 @@
-const express = require("express");
-const productManager = require("./productManager")
+
+import express from "express";
+import productRouter from "./routes/products.routes.js";
+import {engine} from "express-handlebars"
+import __dirname from "./utils.js";
+
+
+import viewsRoutes from "./routes/products.routes.js"
+
 const app = express();
-const pm = new productManager();
+
+
+import  {Server} from "socket.io"
+import http from "http";
+
+const server = http.createServer(app);
+const io =  new Server(server);
+
+app.use(express.static(__dirname+"/../public"));
+
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use("/products",productRouter);
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
+app.set("views", __dirname+"/views");
+app.use("/", viewsRoutes);
 
-app.get("/products", async (req, res) => {
-    try {
+import productManager from"./productManager.js";
+const pm  =  new productManager();
+
+
+
+io.on("connection", (socket) => {
+    console.log("Produtos subiu");
+    // Emitir os dados para os clientes conectados quando houver uma mudança
+    const sendUpdatedProducts = async () => {
         const productsList = await pm.readProductsFromFile();
-        let limit = req.query.limit;
-
-        if (limit) {
-            const limitedList = productsList.slice(0, +limit);
-            return res.status(200).json(limitedList);
-        } else {
-            return res.status(200).json(productsList);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "Erro ao consultar produtos" });
-    }
+        io.emit("produtosAtualizados", { producList: productsList });
+       
+    };
+    
+       sendUpdatedProducts();
+      
 });
-
-app.get("/products/:id", async (req, res) => {
-    const { id } = req.params;
-    try {
-        const searchProduct = await pm.getProductById(id);
-        if (searchProduct) {
-            return res.status(200).json(searchProduct);
-        } else {
-            res.status(404).json({ error: "Produto não encontrado" });
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "Erro " });
-    }
-
-})
+ 
 
 
-app.post("/products", async (req, res) => {
-    try {
-        const { title, description, price, thumbnail, code, stock } = req.body;
-        await pm.readData(req.body);
-        await pm.addProduct(req.body);
 
-        return res.status(201).json({ message: "Produto Cadastrado" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Erro ao cadastrar produto" });
-    }
-});
 
-module.exports = app;
+export default server;
+
+
 

@@ -1,0 +1,48 @@
+<table class="table table-striped">
+    
+<h1 class="d-flex justify-content-center mx-auto p-5">Escolha uma Opcção</h1>
+
+    <h1> Lista de Produtos</h1>
+    <thead>
+        <tr>
+            <th>Nome do Produto</th>
+             <th>Descrição</th>
+            <th>Preço</th>
+            <th>code</th>
+            <th>Estoque</th>
+        </tr>
+    </thead>
+   
+    <tbody id="ler-produtos">
+       
+    </tbody>
+</table>
+    <script src="/socket.io/socket.io.js"></script>
+     
+
+    <script>
+  const socket = io();
+  
+ socket.on("produtosAtualizados", (data) => {
+         const tbodyProdutos = document.getElementById("ler-produtos");
+         data.producList.forEach((produto) => {
+                const row = tbodyProdutos.insertRow();
+                const cellTitle = row.insertCell(0);
+                   const cellDesc=row.insertCell(1);
+                const cellPrice = row.insertCell(2);
+                const cellCode= row.insertCell(3);
+                const cellStock=row.insertCell(4);
+             
+                cellTitle.textContent = produto.title;
+                cellDesc.textContent=produto.description;
+                cellPrice.textContent = produto.price;
+                cellCode.textContent = produto.code;
+                cellStock.textContent = produto.stock;
+         
+           });
+     
+    });
+
+     
+
+</script>

@@ -47,3 +47,15 @@
 - "/products" ler arquivo products e retornar objeto
 - receber parâmetro de query o valor ?limit= que receberá um limite de resultados
 - rota "/products/:id deve reveber o ID do produto por req.params e retornar apenas produto solicitado
+
+# Exercício 4 - Websockets + Handlebars
+### Descrição 
+Integrar views e sockets ao servidor para trabalhar com Handlebars
+### Requisitos
+1. Configurar servidor para integrar template engime do Handlebars (socket.io)
+2. Criar uma visualização "home.handlebars" com produtos adicionados
+3. Criar uma view "realTimeProducts.handlebars" com lista de produtos que funcionará com websocktes
+4. Atualizar automaticamente a lista quando houver modificações(websockets: criar novo produto ou excluir)
+
+ **Observações**
+Evitar a conexão direta entre uma consulta HTTP e WebSocket dentro da classe. Em vez disso, propõe-se a criação de um formulário simples na view para lidar com a criação e exclusão de um produto, enviando o conteúdo via WebSocket em vez de HTTP.

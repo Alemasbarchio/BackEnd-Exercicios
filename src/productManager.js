@@ -1,8 +1,12 @@
 
-const fs = require('fs').promises;
+import * as fs from "fs/promises";
+import path from "path";
+import url from "url";
 
 class ProductManager {
-    #pathData = `${__dirname}/../data/produto.json`;
+    #__filename = url.fileURLToPath(import.meta.url);
+    #__dirname = path.dirname(this.#__filename);
+    #pathData = path.resolve(this.#__dirname, "../data/produto.json");
     
      constructor(title, description, price, thumbnail, code, stock) {
         this.title = title;
@@ -22,12 +26,12 @@ class ProductManager {
     }
 
     readData(reqBody) {
-        const{title, description, price,stock,thumbnail}=reqBody;
+        const{title, description, price,stock,thumbnail,code}=reqBody;
         const product_title =title;
         const product_desc = description;
         const product_price = price;
         const product_thumb =thumbnail;
-        const product_code = "";
+        const product_code =code;
         const product_stock = stock;
         let produto = new ProductManager(
             product_title,
@@ -61,8 +65,8 @@ class ProductManager {
 
     saveProductToFile=async(product)=> {
         let productsList = await this.readProductsFromFile();
-        const id = productsList.length > 0 ? productsList[productsList.length - 1].code + 1 : 1;
-        product.code=id;
+        const id = productsList.length > 0 ? productsList[productsList.length - 1].id + 1 : 1;
+        product.id=id;
         productsList.push(product);
        await fs.writeFile(this.#pathData, JSON.stringify(productsList));
         console.log('Produto salvo com sucesso!');
@@ -87,11 +91,11 @@ class ProductManager {
     upDateProduct() {
         let productId = entrada("Digite um código de produto para atualizar ");
         const productsList = this.readProductsFromFile();
-        const index = productsList.findIndex((produto) => productId == produto.code);
+        const index = productsList.findIndex((produto) => productId == produto.id);
         if (index !== -1) {
             console.log(productsList[index]);
             let updatedProduct = this.readData();
-            updatedProduct.code=parseInt(productId);
+            updatedProduct.id=parseInt(productId);
             productsList[index] = updatedProduct;
             fs.writeFile(this.#pathData, JSON.stringify(productsList));
             console.log('Produto atualizado com sucesso!');
@@ -101,25 +105,26 @@ class ProductManager {
     }
     deleteProductById = async (productId) => {
         let productsList = await this.readProductsFromFile();
-        let updatedProductsList = productsList.filter((produto) => produto.code != +productId);
+        let updatedProductsList = productsList.filter(
+          (produto) => produto.code != +productId
+        );
     
         if (updatedProductsList.length < productsList.length) {
-            fs.writeFile(this.#pathData, JSON.stringify(updatedProductsList));
-            console.log('Produto excluído com sucesso!');
-            return true; 
+          fs.writeFile(this.#pathData, JSON.stringify(updatedProductsList));
+          console.log("Produto excluído com sucesso!");
+          return true;
         } else {
-            console.log("PRODUTO NÃO ENCONTRADO");
-            return false; 
+          console.log("PRODUTO NÃO ENCONTRADO");
+          return false;
         }
-    };
-    
+      };
     
     getProductById= async(productId)=> {
         const productsList = await this.readProductsFromFile();
-        const getProduct = productsList.find((produto) => +productId === produto.code);
+        const getProduct = productsList.find((produto) => +productId === produto.id);
         return getProduct;
        
     }
 }
-module.exports=ProductManager;
+ export default ProductManager;
 

@@ -1,4 +1,4 @@
-const app=require("./src/app");
-app.listen(8080,()=>{
-    console.log("server on porta 8080")
+import app  from "./src/app.js";
+app.listen(3000,()=>{
+    console.log("server on porta 3000")
 })
