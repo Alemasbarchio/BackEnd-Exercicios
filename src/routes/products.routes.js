@@ -48,6 +48,7 @@ productRouter.get("/realtimeproducts", async (req, res) => {
     try {
         const productsList = await pm.readProductsFromFile();
         res.render("products", { title: "Produtos em Tempo Real", productsList });
+      
     } catch (error) {
         console.error("Erro ao carregar dados do arquivo JSON:", error);
         res.status(500).json({ error: "Erro ao consultar produtos" });
@@ -57,12 +58,13 @@ productRouter.get("/realtimeproducts", async (req, res) => {
 
 
 
-productRouter.post("/", async (req, res) => {
+productRouter.post("/realtimeproducts", async (req, res) => {
     try {
         const { title, description, price, thumbnail, code, stock } = req.body;
         await pm.readData(req.body);
         await pm.addProduct(req.body);
-        return res.status(201).json({ message: "Produto Cadastrado" });
+        const productsList = await pm.readProductsFromFile();
+        res.render("products", { title: "Produtos em Tempo Real", productsList });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Erro ao cadastrar produto" });
