@@ -1,0 +1,94 @@
+<table class="table table-striped">
+    
+<h1 class="d-flex justify-content-center mx-auto">Escolha uma Opcção</h1>
+
+    <div class="d-flex justify-content-center gap-5" > 
+          <button id="btn-add"type="button" class="btn btn-success">Adiconar</button>
+          <button id="btn-delete"type="button" class="btn btn-danger">Deletar</button>
+    </div>
+ 
+ <div id="form-active" class="d-none"> 
+   <form class="row g-3 "  action="/realtimeproducts" method="post">
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="title" class="col-md-2 col-form-label">Título:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="title" name="title">
+           </div>
+       </div>
+    </div>
+
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="description" class="col-md-2 col-form-label">Descrição:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="description" name="description">
+           </div>
+       </div>
+    </div>
+    
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="price" class="col-md-2 col-form-label">Preço:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="price" name="price">
+           </div>
+       </div>
+    </div>
+         
+    
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="code" class="col-md-2 col-form-label">Código:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="code" name="code">
+           </div>
+       </div>
+    </div>
+    
+    
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="stock" class="col-md-2 col-form-label">Estoque:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="stock" name="stock">
+           </div>
+       </div>
+    </div>
+            
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="thumb" class="col-md-2 col-form-label">Imagem:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="thumb" name="thumb">
+           </div>
+       </div>
+    </div>
+       
+    <br />
+    <button  class="btn btn-success" type="submit">Enviar</button>
+
+  </form>
+    
+      </div>
+  
+</div>
+
+    <h1> Lista de Produtos</h1>
+    <thead>
+        <tr>
+            <th>Nome do Produto</th>
+             <th>Descrição</th>
+            <th>Preço</th>
+            <th>code</th>
+            <th>Estoque</th>
+        </tr>
+    </thead>
+   
+    <tbody id="ler-produtos">
+       
+    </tbody>
+</table>
+           
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

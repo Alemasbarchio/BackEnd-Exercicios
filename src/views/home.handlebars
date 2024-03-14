@@ -1,0 +1,49 @@
+<table class="table table-striped">
+    <h1 class="d-flex justify-content-center mx-auto p-5"> Lista de Produtos</h1>
+    <thead>
+        <tr>
+            <th>Nome do Produto</th>
+             <th>Descrição</th>
+            <th>Preço</th>
+            <th>code</th>
+            <th>Estoque</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each limitedList}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>R$ {{price}}</td>
+            <td>{{code}}</td>
+            <td>{{stock}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+    <tbody>
+        {{#each productsList}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>R$ {{price}}</td>
+            <td>{{code}}</td>
+            <td>{{stock}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+
+    <tbody>
+        {{#if searchProduct}}
+        <tr>
+            <td>{{searchProduct.title }}</td>
+            <td>{{searchProduct.description}}</td>
+            <td>R$ {{searchProduct.price}}</td>
+            <td>{{searchProduct.code}}</td>
+            <td>{{searchProduct.stock}}</td>
+        </tr>
+        {{/if}}
+    </tbody>
+</table>
+</body>
+
+</html>
