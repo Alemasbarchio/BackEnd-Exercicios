@@ -1,3 +1,22 @@
+# Sequenia para criar o projeto
+Criar o arquivo package 
+### npm init
+
+Criar pastas base
+
+Gerenciar as requisiçoes, rotas e URLS entre outras funcionalidades
+### npm install express
+
+Instalar template engine para manipular Layout HTML
+### npm install  express-handlebars 
+
+Gerenciar coleções  e documentos entre aplicativo nodejs e um banco de dados MongoDB.
+### npm install mongoose
+
+Instalar dependência para reiniciar o servidor sempre que houver alteração no código fonte
+### npm install -D nodemon
+
+
 # Exercício 1 - Classes com ECMAScript
 ### Descrição
 1. Deve ter um método "addProduct" que adicionará um produto array produtos
@@ -59,3 +78,17 @@ Integrar views e sockets ao servidor para trabalhar com Handlebars
 
  **Observações**
 Evitar a conexão direta entre uma consulta HTTP e WebSocket dentro da classe. Em vez disso, propõe-se a criação de um formulário simples na view para lidar com a criação e exclusão de um produto, enviando o conteúdo via WebSocket em vez de HTTP.
+
+# Exercício 5 - Prática de Integração
+
+### Descrição 
+Adicionar modelo de persistencia de dados usando Mongo e Mongoose
+### Requisitos 
+1. Criar um banco de dados utilizando  o Atlas nome: "ecommerce".
+2. Criar coleções "carts", "messages","products".
+3.  Implementar uma nova view em handlebars chamada chat.handlebars para usar chat.
+
+## ** Aspectos a incluir**
+- Conter todos os gerenciadores (filesytem e DB) em uma pasta chamada (DAO).
+- Configurar os serviços para que possam trabalhar com Mongoose em vez de FileSystem(Não excluir o FileSystem do projeto).
+- Mensagens devem ser armazenadas na coleção "messages" no mongo (sem necessidade de usar FileSystem)
