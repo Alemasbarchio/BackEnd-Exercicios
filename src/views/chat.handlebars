@@ -1,0 +1,25 @@
+
+<div class="justify-content-center gap-5">
+    <h1>Chat</h1>
+<form  class="row g-3 ">
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="userName"  class="col-md-2 col-form-label">UserName:</label>
+           <div class="col-sm-3">
+             <input type="text" id="user-name" class="form-control" name="username" readonly>
+             
+           </div>
+       </div>
+    </div>
+
+    <div class="mb-3">
+  <label for="msg" class="form-label">Mensagem</label>
+  <textarea class="form-control" id="msg-users" name="messagensUser" rows="3" ></textarea>
+  <textarea class="form-control" id="msg-logs" name="messagensLogs" rows="3" readonly ></textarea>
+</div>
+</form>
+
+</div>
+ <script src="/socket.io/socket.io.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script src="/js/chat.js"></script>
