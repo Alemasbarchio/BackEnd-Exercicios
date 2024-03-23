@@ -1,18 +1,46 @@
-//
-
-
-
-//  const socket = io();
 const btnAdd = document.getElementById("btn-add")
 const btnDelete = document.getElementById("btn-delete");
-const btnEdit=document.getElementById("btn-edit")
+const btnEdit = document.getElementById("btn-edit")
 const formActive = document.getElementById("form-active")
-const formData=document.getElementById("teste-form");
+const formData = document.getElementById("teste-form");
+const btnSend = document.getElementById("btn-enviar")
+const btnchat = document.getElementById("btn-chat")
 
+
+btnSend.onclick = async () => {
+
+   try {
+      const newForm = new FormData(document.getElementById("teste-form"));
+      const response = await fetch(`/realtimeproducts/`, {
+         method: 'post',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(Object.fromEntries(newForm))
+
+      });
+
+      if (response.ok) {
+         window.location.href = "/realtimeproducts"
+      }
+
+   } catch (error) {
+      console.error('Erro', error);
+
+   }
+
+}
+
+
+btnchat.onclick = async () => {
+   window.open("/chat", "_blank")
+
+}
 btnAdd.onclick = () => {
    formActive.className = "d-flex-column"
    console.log(formActive);
 }
+
 
 btnDelete.onclick = () => {
    let code
@@ -22,6 +50,7 @@ btnDelete.onclick = () => {
       title: "Excluir Produto",
       input: "text",
       text: "Digite o código do produto",
+      width: "20%",
       inputValidator: (value) => {
          return !value && "Você precisa digitar um código!";
       },
@@ -29,25 +58,6 @@ btnDelete.onclick = () => {
    }).then((result) => {
       code = result.value;
       deleteProduct(code);
-   });
-}
-
-btnEdit.onclick = () => {
-   let code
-   
-
-   Swal.fire({
-      title: "Editar Produto",
-      input: "text",
-      text: "Digite o código do produto para editar",
-      inputValidator: (value) => {
-         return !value && "Você precisa digitar um código!";
-      },
-      allowOutsideClick: false,
-   }).then((result) => {
-      code = result.value;
-      editProduct(code);
-      formActive.className = "d-flex-column"
    });
 }
 const deleteProduct = async (code) => {
@@ -64,7 +74,6 @@ const deleteProduct = async (code) => {
          console.log("produto deletedo com sucesso")
       }
       else {
-         //console.error(`Erro ao excluir produto. Status: ${response.status}`);
          window.location.href = `/realtimeproducts`;
       }
    } catch (error) {
@@ -73,41 +82,46 @@ const deleteProduct = async (code) => {
 
 }
 
-const editProduct=async(pcode)=>{
-  
-//var newForm= new FormData(formData);
-//console.log(newForm);
-const response = await fetch(`/realtimeproducts/${pcode}`, {
-   method: 'PUT',
-   headers: {
-     'Content-Type': 'application/json',
-   },
-  
- });
+btnEdit.onclick = () => {
+   let code;
+   Swal.fire({
+      title: "Editar Produto",
+      input: "text",
+      text: "Digite o código do produto para editar",
+      width: "20%",
+      inputValidator: (value) => {
+         return !value && "Você precisa digitar um código!";
+      },
+      allowOutsideClick: false,
+   }).then((result) => {
+      code = result.value;
+      formActive.className = "d-flex-column"
+      getProductByCode(code);
+
+      //
+   });
+}
+const getProductByCode = async (pcode) => {
+
+   try {
+      const response = await fetch(`/realtimeproducts/${pcode}`, {
+         method: 'get',
+         headers: {
+            'Content-Type': 'application/json',
+         }
+      });
+
+      if (response.ok) {
+         window.location.href = `/realtimeproducts/${pcode}`;
+
+      } else {
+         console.error("Falha ao obter detalhes do produto. Status da resposta:", response.status);
+
+      }
+   } catch (error) {
+      console.error("Ocorreu um erro ao tentar obter os detalhes do produto:", error);
+
+   }
 }
 
 
-// ## region: modelo persistencia usando FileSystem exer 3 & 4
-//socket.emit('delete', code);
-// socket.on("produtosAtualizados", (data) => {
-//    const tbodyProdutos = document.getElementById("ler-produtos");
-//    tbodyProdutos.innerHTML = "";
-//    data.producList.forEach((produto) => {
-//       const row = tbodyProdutos.insertRow();
-//       const cellTitle = row.insertCell(0);
-//       const cellDesc = row.insertCell(1);
-//       const cellPrice = row.insertCell(2);
-//       const cellCode = row.insertCell(3);
-//       const cellStock = row.insertCell(4);
-
-//       cellTitle.textContent = produto.title;
-//       cellDesc.textContent = produto.description;
-//       cellPrice.textContent = produto.price;
-//       cellCode.textContent = produto.code;
-//       cellStock.textContent = produto.stock;
-
-//    });
-
-
-
-// });
