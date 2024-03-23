@@ -5,11 +5,26 @@ const productRouter = express.Router();
 import productService from "../dao/service/product-service.js";
 
 
+
+productRouter.get("/realtimeproducts/:code", async (req, res) => {
+     const  code  = req.params.code;
+    try {
+        const product = await productService.getProductById(code);
+        res.render("edit", { title: "Produtos em Tempo Real", product });
+       
+    } catch (error) {
+        res.status(500).json({ error: "Erro ao consultar produtos" });
+
+    }
+
+})
+
+
 productRouter.get("/realtimeproducts", async (req, res) => {
     try {
         const product = await productService.getProducts();
+       
         res.render("products", { title: "Produtos em Tempo Real", product });
-
 
     } catch (error) {
         res.status(500).json({ error: "Erro ao consultar produtos" });
@@ -31,12 +46,13 @@ productRouter.delete("/realtimeproducts/:code", async (req, res) => {
 });
 
 
-productRouter.put("/realtimeproducts/:pcode", async (req, res) => {
-    const { pcode } = req.params;
+productRouter.put("/realtimeproducts/:code", async (req, res) => {
+    const code = req.params.code;
     const productData = req.body;
-    console.log(pcode);
+    console.log(code);
+
     try {
-        const updatedProduct = await productService.upDateproduct(productData, pcode);
+        const updatedProduct = await productService.upDateproduct(productData, code);
         res.status(200).json(updatedProduct);
     } catch (error) {
         console.error('Erro ao atualizar o produto:', error);
