@@ -1,0 +1,65 @@
+<div id="formPut" > 
+   <form id="teste-form" class="row g-3 ">
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="title" class="col-md-2 col-form-label">Título:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control"  id="title" value="{{product.title}}" name="title">
+           </div>
+       </div>
+    </div>
+
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="description" class="col-md-2 col-form-label">Descrição:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="description" value="{{product.description}}" name="description">
+           </div>
+       </div>
+    </div>
+    
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="price" class="col-md-2 col-form-label">Preço:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" value="{{product.price}}" id="price" name="price">
+           </div>
+       </div>
+    </div>
+         
+    
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="code" class="col-md-2 col-form-label">Código:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="code" value="{{product.code}}" name="code" readonly>
+           </div>
+       </div>
+    </div>
+    
+    
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="stock" class="col-md-2 col-form-label">Estoque:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="stock" value="{{product.stock}}" name="stock">
+           </div>
+       </div>
+    </div>
+            
+    <div class="col-md-4">
+       <div class="row mb-2">
+           <label for="thumbNail" class="col-md-2 col-form-label">Imagem:</label>
+           <div class="col-sm-10">
+             <input type="text" class="form-control" id="thumbNail" value="{{product.thumbNail}}" name="thumbNail">
+           </div>
+       </div>
+    </div>
+       
+    <br />
+   
+  </form>
+     <button id="btn-update" class="btn btn-success" >Atualizar</button>
+
+</div>
+      <script src="/js/edit.js"></script>
